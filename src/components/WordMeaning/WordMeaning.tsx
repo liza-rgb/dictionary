@@ -1,5 +1,7 @@
 import React from "react";
 
+import Synonyms from "../Synonyms";
+
 import { MeaningType } from "../../helpers/word-info-type";
 
 interface WordMeaningProps {
@@ -16,6 +18,11 @@ const WordMeaning: React.FC<WordMeaningProps> = ({ meaning }) => {
             <p>{definition.definition}</p>
             <br />
             <em>{definition.example}</em>
+            {definition.synonyms.length > 0 ? (
+              <Synonyms synonyms={definition.synonyms} />
+            ) : (
+              ""
+            )}
           </div>
         );
       })}
