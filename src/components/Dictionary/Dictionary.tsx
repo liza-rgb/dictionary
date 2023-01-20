@@ -8,7 +8,6 @@ const Dictionary: React.FC = () => {
 
   const handleResponse = (response: AxiosResponse) => {
     setResult(response.data[0]);
-    console.log(response.data[0]);
   };
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
