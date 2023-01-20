@@ -1,10 +1,13 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import axios, { AxiosResponse } from "axios";
+import WordInfo from "../WordInfo";
 
 const Dictionary: React.FC = () => {
   const searchQuery = useRef("");
+  const [result, setResult] = useState({});
 
   const handleResponse = (response: AxiosResponse) => {
+    setResult(response.data[0]);
     console.log(response.data[0]);
   };
 
@@ -27,6 +30,7 @@ const Dictionary: React.FC = () => {
           <input type="search" onChange={onSearchQueryChange} />
           <button type="submit">Search</button>
         </form>
+        <WordInfo info={result} />
       </div>
     </div>
   );
