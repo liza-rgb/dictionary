@@ -1,11 +1,19 @@
 import React, { useRef } from "react";
+import axios, { AxiosResponse } from "axios";
 
 const Dictionary: React.FC = () => {
   const searchQuery = useRef("");
 
+  const handleResponse = (response: AxiosResponse) => {
+    console.log(response.data[0]);
+  };
+
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    alert("Searching " + searchQuery.current);
+
+    const apiURL =
+      "https://api.dictionaryapi.dev/api/v2/entries/en/" + searchQuery.current;
+    axios.get(apiURL).then(handleResponse);
   };
 
   const onSearchQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
