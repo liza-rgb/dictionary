@@ -12,23 +12,18 @@ export type MeaningType = {
   antonyms: string[];
 };
 
-export type PhoneticsType = [
-  {
-    audio: string;
-    sourceUrl: string;
-    license: {
-      name: string;
-      url: string;
-    };
-  },
-  {
-    text: string;
-    audio: string;
-  }
-];
+export type PhoneticType = {
+  text: string;
+  audio: string;
+  sourceUrl?: string;
+  license?: {
+    name: string;
+    url: string;
+  };
+};
 
 export type WordInfoType = {
   word?: string;
-  phonetics?: PhoneticsType;
+  phonetics?: PhoneticType[];
   meanings?: MeaningType[];
 };
