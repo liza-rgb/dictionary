@@ -1,15 +1,15 @@
 export type DefinitionType = {
   definition: string;
-  synonyms: String[];
-  antonyms: String[];
+  synonyms: string[];
+  antonyms: string[];
   example: string;
 };
 
 export type MeaningType = {
   partOfSpeech: string;
   definitions: DefinitionType[];
-  synonyms: String[];
-  antonyms: String[];
+  synonyms: string[];
+  antonyms: string[];
 };
 
 export type PhoneticsType = [
