@@ -1,5 +1,7 @@
 import React from "react";
 
+import "./Synonyms.css";
+
 interface SynonymsProps {
   synonyms: string[];
 }
@@ -7,7 +9,6 @@ interface SynonymsProps {
 const Synonyms: React.FC<SynonymsProps> = ({ synonyms }) => {
   return (
     <div className="Synonyms">
-      Synonyms: {synonyms}
       <ul>
         {synonyms.map((synonym, index) => {
           return <li key={index}>{synonym}</li>;
