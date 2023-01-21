@@ -1,7 +1,7 @@
 import React from "react";
 
 import WordMeaning from "../WordMeaning";
-import Phonetics from "../Phonetic";
+import Phonetics from "../Phonetics";
 
 import { WordInfoType } from "../../helpers/word-info-type";
 
@@ -12,19 +12,15 @@ interface WordInfoProps {
 const WordInfo: React.FC<WordInfoProps> = ({ info }) => {
   return (
     <div className="WordInfo">
-      <h2>{info.word}</h2>
-      {info.phonetics?.map((phonetic, index) => {
-        return (
-          <div key={index}>
-            <Phonetics phonetic={phonetic} />
-          </div>
-        );
-      })}
+      <section>
+        <h2 className="fw-bold fs-3"> {info.word}</h2>
+        {info.phonetics ? <Phonetics phonetics={info.phonetics} /> : ""}
+      </section>
       {info.meanings?.map((meaning, index) => {
         return (
-          <div key={index}>
+          <section key={index}>
             <WordMeaning meaning={meaning} />
-          </div>
+          </section>
         );
       })}
     </div>
