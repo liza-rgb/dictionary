@@ -1,0 +1,32 @@
+.Phonetic * {
+  display: inline;
+}
+
+.Phonetic div {
+  font-size: 15px;
+  margin-right: 5px;
+}
+
+.Phonetic a {
+  color: #fff;
+  text-decoration: none;
+  background-color: #4e89dd;
+  border: 1px solid #4e89dd;
+  border-radius: 100%;
+  padding: 5px;
+}
+
+.Phonetic a:hover {
+  background-color: #fff;
+  transition: 0.1s ease-in-out;
+}
+
+.Phonetic a:hover svg {
+  fill: #4e89dd;
+}
+
+.Phonetic svg {
+  width: 20px;
+  height: 20px;
+  fill: #fff;
+}
