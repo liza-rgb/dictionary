@@ -3,6 +3,7 @@ import axios, { AxiosResponse } from "axios";
 
 import WordInfo from "../WordInfo";
 import { ReactComponent as SearchIcon } from "../../icons/search.svg";
+import ImagesList from "../ImagesList";
 
 import "./Dictionary.css";
 
@@ -12,20 +13,32 @@ interface DictionaryProps {
 
 const Dictionary: React.FC<DictionaryProps> = ({ defaultWord }) => {
   const searchQuery = useRef(defaultWord);
-  const [result, setResult] = useState({});
+  const [definition, setDefinition] = useState({});
+  const [images, setImages] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState("");
 
-  const handleResponse = (response: AxiosResponse) => {
-    setResult(response.data[0]);
+  const handleImagesResponse = (response: AxiosResponse) => {
+    setImages(response.data.photos);
   };
 
-  const handleRejection = () => {
+  const handleSearchResponse = (response: AxiosResponse) => {
+    setDefinition(response.data[0]);
+
+    const imagesApiUrl = `https://api.pexels.com/v1/search?query=${response.data[0].word}&per_page=9`;
+    const apiKey = "Uilq3OR8xJW9aPA1jgrEcTRsmwQUo51dwxvjznD8RfSGb60AKjVodlXc";
+    axios
+      .get(imagesApiUrl, { headers: { Authorization: `Bearer ${apiKey}` } })
+      .then(handleImagesResponse);
+  };
+
+  const handleSearchRejection = () => {
     setError(`Can't found '${searchQuery.current}'. Please try again!`);
   };
 
   const onSearchQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     searchQuery.current = event.target.value;
+    setError("");
   };
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
@@ -34,14 +47,34 @@ const Dictionary: React.FC<DictionaryProps> = ({ defaultWord }) => {
   };
 
   const search = () => {
-    const apiURL =
+    const searchApiURL =
       "https://api.dictionaryapi.dev/api/v2/entries/en/" + searchQuery.current;
-    axios.get(apiURL).then(handleResponse).catch(handleRejection);
+    axios
+      .get(searchApiURL)
+      .then(handleSearchResponse)
+      .catch(handleSearchRejection);
   };
 
   const load = () => {
     search();
     setIsLoaded(true);
+  };
+
+  const getContent = () => {
+    if (Object.keys(definition).length !== 0) {
+      return (
+        <>
+          <WordInfo info={definition} />
+          {images ? (
+            <section>
+              <ImagesList images={images} />
+            </section>
+          ) : (
+            ""
+          )}
+        </>
+      );
+    }
   };
 
   if (isLoaded) {
@@ -66,7 +99,7 @@ const Dictionary: React.FC<DictionaryProps> = ({ defaultWord }) => {
           </form>
           <div className="suggestions">i.e. paris, wine, yoga, coding</div>
         </section>
-        {Object.keys(result).length === 0 ? "" : <WordInfo info={result} />}
+        {getContent()}
       </div>
     );
   } else {
