@@ -25,7 +25,12 @@
   height: 18px;
 }
 
-.Dictionary .suggestions {
+.Dictionary .suggestions,
+.Dictionary .error {
   font-size: 12px;
   margin-top: 5px;
+}
+
+.Dictionary .error {
+  color: #e73636;
 }

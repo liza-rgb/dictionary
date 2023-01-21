@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <main>
-        <Dictionary />
+        <Dictionary defaultWord="imagine" />
       </main>
     </div>
   );
